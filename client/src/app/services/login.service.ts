@@ -8,6 +8,10 @@ import 'rxjs/add/operator/catch'
 import 'rxjs/add/observable/throw';
 
 
+
+
+
+
 @Injectable()
 export class LoginService {
     private getUserUrl = 'users/get';  // URL to web API
@@ -15,7 +19,7 @@ export class LoginService {
     constructor (private http: Http) {}
     private socket;
     private url = window.location.origin;
-
+    
 
     /*
      * Get blog messages from server

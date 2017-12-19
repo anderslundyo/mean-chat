@@ -14,13 +14,11 @@ router.post('/post', function(req, res, next) {
     var instance = new schema.User(req.body);
 
     schema.User.find({}).sort({_id:-1}).skip(10).exec(function (err, users) {
-        console.log("Hallo 2");
         if (err)
             return console.error(err);
-        console.log("Loader success: ", users);
-        users.forEach(function(blog){
-            console.log("Loader success: ", users);
-            schema.User.findByIdAndRemove(users._id).exec();
+        users.forEach(function(user){
+            console.log("Loader success: ", user);
+            schema.User.findByIdAndRemove(user._id).exec();
         });
     });
 
@@ -34,8 +32,8 @@ router.post('/post', function(req, res, next) {
 
 router.notifyclients = function (client) {
     console.log("clieeent: " + client);
-    /*
-    userSchema.User.find({}).exec(function (err, users) {
+    
+    schema.User.find({}).exec(function (err, users) {
         if (err)
             return console.error(err);
         var toNotify = client?new Array(client):router.clients;
@@ -43,6 +41,6 @@ router.notifyclients = function (client) {
             socket.emit('refresh', users);
         })
     });
-    */
+    
 }
 module.exports = router;

@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const message = require('../models/message');
-const Chatroom = require('../models/chatroom');
-const database = require('../config/database');
-const io = require ('../app');
+const message = require('../model/message');
+const Chatroom = require('../model/chatroom');
+
+//const io = require ('../app');
 
 // POST Message
 router.post('/send-msg', (req, res, next) => {
@@ -53,11 +53,13 @@ router.addClient = function (client) {
 };
 // Notifyclients about new msg
 router.notifyclients = function (currentRoom) {
+    /*
     message.find({chatroom: currentRoom}).exec(function (err, message) {
         if (err)
             return console.error(err);
             io.in(currentRoom).emit('refresh messages', message);
         })
+    */
     };
 
 // Notifyclients about new room

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
-import {Message} from '../components/chat/message';
-import {Chatroom} from '../components/chat/chatroom';
+import {Message} from '../models/message';
+import {Chatroom} from '../models/chatroom';
 
 
 @Injectable()
