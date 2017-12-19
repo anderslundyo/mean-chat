@@ -1,6 +1,6 @@
 export class Message{
     constructor(
-      public name: String,
+      public username: String,
       public message: String,
       public chatroom: String,
     ) {}

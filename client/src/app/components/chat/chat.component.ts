@@ -11,7 +11,6 @@ import { Message } from './message';
   providers: [ChatService]
 })
 export class ChatComponent implements OnInit {
-  name: String = JSON.parse(localStorage.getItem('user')).name;
   username: String;
   message: String;
   roomName: String;
@@ -40,17 +39,17 @@ export class ChatComponent implements OnInit {
   }
 
   chatConnect() {
-    console.log(this.name +' is now connected to the chat');
-    this.chatService.chatConnect(this.name);
+    console.log(this.username +' is now connected to the chat');
+    this.chatService.chatConnect(this.username);
   }
 
   submitMessage() {
     const message: Message = {
-      name: this.name,
+      username: this.username,
       message: this.message,
       chatroom: this.currentRoom
     };
-    console.log(this.name + " just send a message");
+    console.log(this.username + " just send a message");
     this.chatService.submitMsg(message).subscribe();
   }
 

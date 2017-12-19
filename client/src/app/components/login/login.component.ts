@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
+import { User } from '../../models/user';
 
 
 @Component({
@@ -8,23 +10,24 @@ import {Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  title = 'Login Component';
+  user = new User('')
   username: String;
   constructor(
-    private router:Router
+    private router:Router,
+    private loginService: LoginService
   ) { }
 
+
   ngOnInit() {
+    
   }
 
-
   onLoginSubmit(){
-    const name = {
-      username: this.username
-    }
-
-    localStorage.setItem('user', JSON.stringify(name.username));
-
-    console.log(JSON.parse(localStorage.getItem('user')));
+    console.log("onLoginSubmit kørt");
+    this.loginService.addUser(this.user).subscribe(user => {
+      this.user = user;
+    });
+    this.router.navigate(['chat']);
   }
 }

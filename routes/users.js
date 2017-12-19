@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+var schema = require('../model/user');
+var database = require('../model/database');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -16,17 +19,30 @@ router.post('/post', function(req, res, next) {
             return console.error(err);
         console.log("Loader success: ", users);
         users.forEach(function(blog){
-            console.log("Loader success: ", user);
-            schema.User.findByIdAndRemove(user._id).exec();
+            console.log("Loader success: ", users);
+            schema.User.findByIdAndRemove(users._id).exec();
         });
     });
 
     instance.save(function (err, User) {
-        result = err?err:Blog;
+        result = err?err:User;
         res.send(result);
         router.notifyclients();
         return result;
     });
 });
 
+router.notifyclients = function (client) {
+    console.log("clieeent: " + client);
+    /*
+    userSchema.User.find({}).exec(function (err, users) {
+        if (err)
+            return console.error(err);
+        var toNotify = client?new Array(client):router.clients;
+        toNotify.forEach(function(socket){
+            socket.emit('refresh', users);
+        })
+    });
+    */
+}
 module.exports = router;

@@ -10,8 +10,8 @@ import {Chatroom} from '../components/chat/chatroom';
 export class ChatService {
   private url = window.location.origin;
   private socket = io(this.url);
-  private postUrl = 'http://localhost:1337/chat/send-msg';
-  private chatRoomUrl = 'http://localhost:1337/chat/new-chatroom';
+  private postUrl = 'http://localhost:3000/chat/send-msg';
+  private chatRoomUrl = 'http://localhost:3000/chat/new-chatroom';
 
   constructor(
     private http: Http
