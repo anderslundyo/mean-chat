@@ -2,31 +2,33 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes} from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './Login/login.component';
-import { MsgComponent } from './Msg/msg.component';
-import { ChatComponent } from './chat/chat.component';
+import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { ChatComponent } from './components/chat/chat.component';
+
+
+const appRoutes: Routes =  [
+  {path:'', component: HomeComponent},
+  {path:'login', component: LoginComponent},
+  {path:'chat/:currentRoom', component: ChatComponent},
+  {path:'chat', component: ChatComponent }
+]
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MsgComponent,
-    ChatComponent,
-    HomeComponent
+    HomeComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot([
-      { path: '', component: LoginComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'test', component: MsgComponent }
-    ])
+    RouterModule.forRoot(appRoutes, {useHash: true}),
   ],
   providers: [],
   bootstrap: [AppComponent]

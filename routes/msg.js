@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var schema = require('../model/schema');
+//var schema = require('../model/schema');
 var database = require('../model/database');
 
 /* GET all messages */
@@ -16,7 +16,7 @@ router.get('/get', function(req, res, next) {
 });
 
 
-/* POST single Msg post */
+/* POST single Msg post *//*
 router.post('/post', function(req, res, next) {
     var instance = new schema.Msg(req.body);
 
@@ -39,7 +39,7 @@ router.post('/post', function(req, res, next) {
         return result;
     });
 });
-
+*/
 
 /* Notify messages to connected clients */
 router.clients = [];
