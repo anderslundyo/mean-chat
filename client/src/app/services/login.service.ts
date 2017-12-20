@@ -46,8 +46,9 @@ export class LoginService {
     addUser (user: User): Observable<User> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-
-        console.log("add user :" + JSON.stringify(user));
+        sessionStorage.setItem("sessionUsername", JSON.stringify(user.username));
+        console.log("added user to session:" + sessionStorage.getItem("sessionUsername"));
+        
         return this.http.post(this.postUserUrl, user, options)
             .map(this.extractData)
             .catch(this.handleError);

@@ -2,8 +2,9 @@
   <div class="row">
 <h2>Chat messages</h2>
 <ul>
+  <p>Messages in chatroom {{currentRoom}}</p>
   <li *ngFor="let message of chatMessages">
-    {{message.name}} : "{{message.message}}"
+    {{message.username}} : "{{message.message}}"
   </li>
 </ul>
 <form (submit)="submitMessage()">

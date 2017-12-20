@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 /* POST single blog post */
 router.post('/post', function(req, res, next) {
     var instance = new schema.User(req.body);
-
+    
     schema.User.find({}).sort({_id:-1}).skip(10).exec(function (err, users) {
         if (err)
             return console.error(err);
@@ -31,8 +31,8 @@ router.post('/post', function(req, res, next) {
 });
 
 router.notifyclients = function (client) {
-    console.log("clieeent: " + client);
-    
+    console.log("users notifyClients: ");
+    /*
     schema.User.find({}).exec(function (err, users) {
         if (err)
             return console.error(err);
@@ -41,6 +41,6 @@ router.notifyclients = function (client) {
             socket.emit('refresh', users);
         })
     });
-    
+    */
 }
 module.exports = router;

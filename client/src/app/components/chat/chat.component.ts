@@ -30,12 +30,12 @@ export class ChatComponent implements OnInit {
       if (params['currentRoom']) {
         this.currentRoom = params['currentRoom'];
         console.log('current room is: ', this.currentRoom);
+        this.getMessages(this.currentRoom);
       }
     });
     this.chatConnect();
-    this.getChatrooms();
-    this.chatConnect();
-    this.getMessages(this.currentRoom);
+    this.getChatrooms();   
+    
   }
 
   chatConnect() {
@@ -49,15 +49,17 @@ export class ChatComponent implements OnInit {
       message: this.message,
       chatroom: this.currentRoom
     };
-    console.log(this.username + " just send a message");
+    console.log(sessionStorage.getItem("sessionUsername") + " just send a message");
     this.chatService.submitMsg(message).subscribe();
   }
 
   getMessages(room) {
+    console.log("getMessages room: " + room)
     this.chatService.getMessages(room)
       .subscribe(
         messages => {
           this.chatMessages = messages;
+          console.log(messages)
         }
       );
   }
@@ -85,5 +87,4 @@ export class ChatComponent implements OnInit {
     this.getChatrooms();
     this.getMessages(this.currentRoom);
   }
-
 }

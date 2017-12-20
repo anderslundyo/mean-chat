@@ -58,7 +58,7 @@ app.use(function(err, req, res, next) {
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3005');
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
@@ -78,6 +78,38 @@ io.on('connection', function (socket) {
     console.log("New client connected");
     chat.addClient(socket);
     users.notifyclients();
+
+
+    socket.on('connect to chat', (nickname) => {
+        socket.nickname = nickname;
+        chat.addClient(socket);
+        chat.notifyClientsRooms();
+    });
+
+        //Room sockets 
+        let currentRoom = '';
+
+        socket.on('send current room', (data) =>{
+            currentRoom = data;
+            console.log("Current room on the server is: " + data);
+            chat.notifyclients(currentRoom);
+        });
+    
+        socket.on('change room', function(data){
+            socket.leave(currentRoom, null);
+            currentRoom = data;
+            socket.join(data);
+        });
+    
+        socket.on('disconnect user', function(){
+            // console.log("disconnected");
+            chat.disconnectClient(socket);
+        });
+    
+        socket.on('disconnect', function(){
+            console.log("disconnected");
+            chat.disconnectClient(socket)
+        });
 });
 server.on('listening', onListening);
 

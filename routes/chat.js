@@ -4,20 +4,25 @@ const mongoose = require('mongoose');
 const message = require('../model/message');
 const Chatroom = require('../model/chatroom');
 
-//const io = require ('../app');
+
+const app = require('express')();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
 // POST Message
 router.post('/send-msg', (req, res, next) => {
     let newMsg = new message({
-        name: req.body.name,
+        username: req.body.username,
         message: req.body.message,
         chatroom: req.body.chatroom
     });
 
     message.addMessage(newMsg, (err, msg) => {
         if(err){
+            console.log("new message failed");
             res.json({success: false, msg: 'Failed to save message'});
         } else{
+            console.log("new message succeeded" + msg);
             res.json({success: true, msg: 'Message saved'});
             router.notifyclients(newMsg.chatroom);
         }
@@ -52,14 +57,18 @@ router.addClient = function (client) {
     router.notifyclients(client);
 };
 // Notifyclients about new msg
+//Køres 
 router.notifyclients = function (currentRoom) {
-    /*
+    console.log("chat notifyclients kørt: " + currentRoom)
+    
     message.find({chatroom: currentRoom}).exec(function (err, message) {
-        if (err)
-            return console.error(err);
-            io.in(currentRoom).emit('refresh messages', message);
+        if (err) {
+            console.log("fejll", err)
+            return;
+        }
+        console.log("Beskeder i denne channel" + message)
+        io.in(currentRoom).emit('refresh messages', message);
         })
-    */
     };
 
 // Notifyclients about new room

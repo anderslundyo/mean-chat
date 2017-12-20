@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 import {Message} from '../models/message';
 import {Chatroom} from '../models/chatroom';
-
+ 
 
 @Injectable()
 export class ChatService {
@@ -28,9 +28,9 @@ export class ChatService {
     let observable = new Observable(observer => {
       this.socket.emit('send current room', room);
       this.socket.on('refresh messages', (data) => {
+        console.log("chatservice getMessages  " + data)
         observer.next(data);
       });
-
       return () => {
         this.socket.disconnect();
       };
